@@ -11,9 +11,12 @@ print(f"Hello my friend {friends[2]}, how are you?")
 
 #3-3
 favourite_transportation_vehicles = ["bicycle", "foot", "train"]
-print(f"My favourite vehicle is {favourite_transportation_vehicles[0]} as it is healthy, cheap and fast.")
-print(f"I really like to go everywhere by {favourite_transportation_vehicles[1]}, it is good as well!")
-print(f"But if I need to go somewhere far, I definitely use {favourite_transportation_vehicles[-1]}.")
+print(f"My favourite vehicle is {favourite_transportation_vehicles[0]} as it"
+      f" is healthy, cheap and fast.")
+print(f"I really like to go everywhere by "
+      f"{favourite_transportation_vehicles[1]}, it is good as well!")
+print(f"But if I need to go somewhere far, I definitely use "
+      f"{favourite_transportation_vehicles[-1]}.")
 
 #3-4
 persons = ["Will Smith", "Wim Hoff", "Jaromir Jagr", "David Copperfield"]
@@ -27,7 +30,7 @@ print(f"Hi {persons[-1]}, I would like to invite to for a ... dinner yeah!")
 #3-6
 persons.insert(0, "Cindy Crawford")
 persons.insert(-1, "Natalia Imbruglia")
-persons.insert(2, "Shanya Twain")
+persons.insert(2, "Shannaya Twain")
 print(persons)
 
 #3-7

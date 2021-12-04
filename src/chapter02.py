@@ -17,13 +17,13 @@ print(name.upper())
 print(name.title())
 
 #2-5
-print('Scott MacGregor\'s important quote is "I think its very important, if you have the luxury of choosing jobs,'
-      ' to choose one that\'s fun."')
+print('Scott MacGregor\'s important quote is "I think its very important,'
+      ' if you have the luxury of choosing jobs, choose one that\'s fun."')
 
 #2-6
 famous_person = 'Scott MacGregor'
-print(f'{famous_person}\'s important quote is "I think its very important, if you have the luxury of choosing jobs,'
-      ' to choose one that\'s fun."')
+print(f'{famous_person}\'s important quote is "I think its very important,'
+      f' if you have the luxury of choosing jobs, choose one that\'s fun."')
 
 #2-7
 name = '\t  Will Smith \n'
