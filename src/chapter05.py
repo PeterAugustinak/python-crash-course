@@ -1,12 +1,12 @@
 # 5-1
 car = 'subaru'
-print("Is car == 'subraru'? I predict True.")
+print("Is car == 'subaru'? I predict True.")
 print(car == 'subaru')
 
 print("\nIs car 'audi'? I predict False.")
 print(car == 'audi')
 
-print(f"subaru is not subraru: {car != 'subaru'}")
+print(f"subaru is not subaru: {car != 'subaru'}")
 print(f"subaru is not audi: {car != 'audi'}")
 
 # 5-2
@@ -114,6 +114,3 @@ for number in ordinal_numbers:
         print(f"{number}nd")
     elif number == 1:
         print(f"{number}st")
-
-
-
