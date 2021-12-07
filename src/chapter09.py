@@ -183,11 +183,217 @@ print(user.logging_attempts)
 user.reset_login_attempts()
 print(user.logging_attempts)
 
+"""
+9-6. Ice Cream Stand: An ice cream stand is a specific kind of restaurant. Write
+a class called IceCreamStand that inherits from the Restaurant class you wrote
+in Exercise 9-1 (page 162) or Exercise 9-4 (page 167). Either version of
+the class will work; just pick the one you like better. Add an attribute called
+flavors that stores a list of ice cream flavors. Write a method that displays
+these flavors. Create an instance of IceCreamStand, and call this method.
+"""
+print("\n/// 9-6")
 
-print("\n/// 9-1")
-print("\n/// 9-1")
-print("\n/// 9-1")
-print("\n/// 9-1")
+
+class IceCreamStand(Restaurant):
+
+    def __init__(self, restaurant_name, cuisine_type, number_serverd=0):
+        super().__init__(restaurant_name, cuisine_type, number_serverd)
+        self.flavors = ["banana", "lemon", "chocolate"]
+
+    def display_flavors(self):
+        print("This ice cream stand offers following flavors: ")
+        for flavor in self.flavors:
+            print(f"\t - {flavor}")
+
+
+ic_stand = IceCreamStand("IC for yoy", "ice cream")
+ic_stand.display_flavors()
+
+"""
+9-7. Admin: An administrator is a special kind of user. Write a class called
+Admin that inherits from the User class you wrote in Exercise 9-3 (page 162)
+or Exercise 9-5 (page 167). Add an attribute, privileges, that stores a list
+of strings like "can add post", "can delete post", "can ban user", and so on.
+Write a method called show_privileges() that lists the administrator’s set of
+privileges. Create an instance of Admin, and call your method.
+"""
+print("\n/// 9-7")
+
+
+class Admin(User):
+
+    def __init__(self, first_name, last_name, age, status, active=True):
+        super().__init__(first_name, last_name, age, status, active=True)
+        self.privileges = ["can add post", "can delete post", "can ban user"]
+
+    def show_privileges(self):
+        print("Administrator privileges: ")
+        for privilege in self.privileges:
+            print(f"\t- {privilege}")
+
+
+admin1 = Admin("John", "Smith", 60, "occupied")
+admin1.show_privileges()
+
+"""
+9-8. Privileges: Write a separate Privileges class. The class should have one
+attribute, privileges, that stores a list of strings as described in Exercise 9-7.
+Move the show_privileges() method to this class. Make a Privileges instance
+as an attribute in the Admin class. Create a new instance of Admin and use your
+method to show its privileges.
+"""
+print("\n/// 9-8")
+
+
+class Admin2(User):
+
+    def __init__(self, first_name, last_name, age, status, active=True):
+        super().__init__(first_name, last_name, age, status, active=True)
+        self.privileges = Privileges()
+
+
+class Privileges:
+
+    def __init__(self):
+        self.privileges = ["can add post", "can delete post", "can ban user"]
+
+    def show_privileges(self):
+        print("Administrator2 privileges: ")
+        for privilege in self.privileges:
+            print(f"\t- {privilege}")
+
+
+admin2 = Admin2("John", "Smith", 60, "occupied")
+admin2.privileges.show_privileges()
+
+"""
+9-9. Battery Upgrade: Use the final version of electric_car.py from this section.
+Add a method to the Battery class called upgrade_battery(). This method
+should check the battery size and set the capacity to 100 if it isn’t already.
+Make an electric car with a default battery size, call get_range() once, and
+then call get_range() a second time after upgrading the battery. You should
+see an increase in the car’s range.
+"""
+print("\n/// 9-9")
+
+
+class Car:
+    """A simple attempt to represent a car."""
+
+    def __init__(self, make, model, year):
+         self.make = make
+         self.model = model
+         self.year = year
+         self.odometer_reading = 0
+
+    def get_descriptive_name(self):
+        long_name = f"{self.year} {self.make} {self.model}"
+        return long_name.title()
+
+    def read_odometer(self):
+        print(f"This car has {self.odometer_reading} miles on it.")
+
+    def update_odometer(self, mileage):
+        if mileage >= self.odometer_reading:
+            self.odometer_reading = mileage
+        else:
+            print("You can't roll back an odometer!")
+
+    def increment_odometer(self, miles):
+        self.odometer_reading += miles
+
+
+class ElectricCar(Car):
+    """Represent aspects of a car, specific to electric vehicles."""
+
+    def __init__(self, make, model, year):
+        super().__init__(make, model, year)
+        self.battery = Battery()
+
+
+class Battery:
+    """A simple attempt to model a battery for an electric car."""
+
+    def __init__(self, battery_size=75):
+        """Initialize the battery's attributes."""
+        self.battery_size = battery_size
+
+    def describe_battery(self):
+        """Print a statement describing the battery size."""
+        print(f"This car has a {self.battery_size}-kWh battery.")
+
+    def upgrade_battery(self):
+        if self.battery_size != 100:
+            self.battery_size = 100
+
+    def get_range(self):
+        """Print a statement about the range this battery provides."""
+        if self.battery_size <= 75:
+            range = 260
+        elif self.battery_size == 100:
+            range = 315
+        else:
+            range = 0
+
+        print(f"This car can go about {range} miles on a full charge.")
+
+
+electric_car = ElectricCar("Tesla", "Hybrid", 2021)
+electric_car.battery.get_range()
+electric_car.battery.upgrade_battery()
+electric_car.battery.get_range()
+
+"""
+9-10. Imported Restaurant: Using your latest Restaurant class, store it in a 
+module. Make a separate file that imports Restaurant. Make a Restaurant instance,
+and call one of Restaurant’s methods to show that the import statement is 
+working properly.
+"""
+print("\n/// 9-10")
+
+from chapter09_restaurant import Restaurant as ImportedRestaurant
+
+new_restaurant = ImportedRestaurant("Vegan Bistro", "plant based")
+new_restaurant.describe_restaurant()
+
+"""
+9-11. Imported Admin: Start with your work from Exercise 9-8 (page 173).
+Store the classes User, Privileges, and Admin in one module. Create a separate 
+file, make an Admin instance, and call show_privileges() to show that 
+everything is working correctly.
+"""
+print("\n/// 9-11")
+
+from chapter09_user import Admin as AdminImported
+
+new_admin = AdminImported("Anette", "Tester", 29, "single")
+new_admin.privileges.show_privileges()
+
+"""
+9-12. Multiple Modules: Store the User class in one module, and store the
+Privileges and Admin classes in a separate module. In a separate file, create
+an Admin instance and call show_privileges() to show that everything is still
+working correctly.
+"""
+print("\n/// 9-12")
+from chapter09_admin_privilege_separate import Admin as AdminSeparate
+
+new_admin_separate = AdminSeparate("Julia", "Roberts", 41, "nice")
+new_admin_separate.privileges.show_privileges() # from Privilege class
+new_admin_separate.describe_user() # from User (base) class
+
+"""
+9-13. Dice: Make a class Die with one attribute called sides, which has a default
+value of 6. Write a method called roll_die() that prints a random number
+between 1 and the number of sides the die has. Make a 6-sided die and roll it
+10 times.
+Make a 10-sided die and a 20-sided die. Roll each die 10 times
+"""
+print("\n/// 9-13")
+
+
+
+
 print("\n/// 9-1")
 print("\n/// 9-1")
 print("\n/// 9-1")
