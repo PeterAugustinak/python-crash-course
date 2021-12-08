@@ -383,17 +383,93 @@ new_admin_separate.privileges.show_privileges() # from Privilege class
 new_admin_separate.describe_user() # from User (base) class
 
 """
-9-13. Dice: Make a class Die with one attribute called sides, which has a default
+9-13. Dice: Make a class Dice with one attribute called sides, which has a default
 value of 6. Write a method called roll_die() that prints a random number
 between 1 and the number of sides the die has. Make a 6-sided die and roll it
 10 times.
 Make a 10-sided die and a 20-sided die. Roll each die 10 times
 """
 print("\n/// 9-13")
+from random import randint
 
 
+class Dice:
+    """Simple class for building and rolling dice"""
+
+    def __init__(self, sides=6):
+        self.sides = sides
+
+    def roll_dice(self, rolls):
+        for roll in range(rolls):
+            fallen_side = randint(1, self.sides)
+            print(f"Roll # {roll + 1}: ")
+            print(f"\tThe {self.sides}-sided dice fell on number {fallen_side}!")
+
+six_sided_dice = Dice()
+six_sided_dice.roll_dice(10)
+
+ten_sided_dice = Dice(10)
+ten_sided_dice.roll_dice(10)
+
+twenty_sided_dice = Dice(20)
+twenty_sided_dice.roll_dice(10)
+
+"""
+9-14. Lottery: Make a list or tuple containing a series of 10 numbers and
+five letters. Randomly select four numbers or letters from the list and print a
+message saying that any ticket matching these four numbers or letters wins a
+prize.
+"""
+print("\n/// 9-14")
+import random
+
+lottery_poll = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'a', 'b', 'c', 'd', 'e')
+for i in range(3):
+    winning_numbers = random.sample(lottery_poll, 5)
+    print(f"Ticket matching following numbers  \
+        {winning_numbers} wins!")
+
+"""
+9-15. Lottery Analysis: You can use a loop to see how hard it might be to win
+the kind of lottery you just modeled. Make a list or tuple called my_ticket.
+Write a loop that keeps pulling numbers until your ticket wins. Print a message
+reporting how many times the loop had to run to give you a winning ticket.
+"""
+print("\n/// 9-15")
+my_ticket = ('a', 5, 'c', 2)
+
+won = False
+draw_number = 0
+while not won:
+    draw_number += 1
+    winning_numbers = random.sample(lottery_poll, 5)
+    won = set(my_ticket).issubset(winning_numbers)
+    if won:
+        print(f"Winning numbers: {winning_numbers}")
+else:
+    print(f"You won! It takes {draw_number} draws to make you win!")
+
+"""
+9-16. Python Module of the Week: One excellent resource for exploring the
+Python standard library is a site called Python Module of the Week. Go to
+https://pymotw.com/ and look at the table of contents. Find a module that
+looks interesting to you and read about it, perhaps starting with the random
+module.
+"""
+print("\n/// 9-16")
+import pickle
+import pprint
 
 
-print("\n/// 9-1")
-print("\n/// 9-1")
-print("\n/// 9-1")
+data1 = [{'a': 'A', 'b': 2, 'c': 3.0}]
+print('BEFORE: ', end=' ')
+pprint.pprint(data1)
+
+data1_string = pickle.dumps(data1)
+
+data2 = pickle.loads(data1_string)
+print('AFTER : ', end=' ')
+pprint.pprint(data2)
+
+print('SAME? :', (data1 is data2))
+print('EQUAL?:', (data1 == data2))
