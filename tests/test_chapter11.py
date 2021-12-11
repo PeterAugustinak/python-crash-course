@@ -1,5 +1,5 @@
 import unittest
-from src.chapter11 import *
+from src.chapters.chapter11 import *
 
 
 class CityCountryTest(unittest.TestCase):
