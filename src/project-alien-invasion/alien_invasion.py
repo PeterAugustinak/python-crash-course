@@ -23,7 +23,7 @@ class ALienInvasion:
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion")
-        # create an instance to store game statstics
+        # create an instance to store game statistics
         self.stats = GameStats(self)
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -56,10 +56,31 @@ class ALienInvasion:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
 
+    # 14-1
+    def _start_game(self):
+        """Starts game if mouse click on Play button or p key is pressed"""
+        # reset game statistics
+        self.settings.initialize_dynamic_settings()
+        self.stats.reset_stats()
+        self.stats.game_active = True
+
+        # get rid of any remaining aliens and bullets
+        self.aliens.empty()
+        self.bullets.empty()
+
+        # create a new fleet and center the ship
+        self._create_fleet()
+        self.ship.center_ship()
+
+        # hide the mouse cursor
+        pygame.mouse.set_visible(False)
+
     def _check_play_button(self, mouse_pos):
         """Start a new game when the player clicks Play"""
-        if self.play_button.rect.collidepoint(mouse_pos):
-            self.stats.game_active = True
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+            # 14-1
+            self._start_game()
 
     def _check_keydown_events(self, event):
         """Respond to key presses"""
@@ -73,6 +94,10 @@ class ALienInvasion:
             sys.exit()
         if event.key == pygame.K_SPACE:
             self._fire_bullet()
+        # 14-1
+        if event.key == pygame.K_p:
+            if not self.stats.game_active:
+                self._start_game()
 
     def _check_keyup_events(self, event):
         """Response to ey releases"""
@@ -111,6 +136,7 @@ class ALienInvasion:
             # destroy existing bullets and create new fleet
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _update_aliens(self):
         """
@@ -145,6 +171,7 @@ class ALienInvasion:
             sleep(0.5)
         else:
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
@@ -158,9 +185,9 @@ class ALienInvasion:
 
         # determine the number of rows of aliens that fit on the screen
         ship_height = self.ship.rect.height
-        available_space_column = (self.settings.screen_height -
-                                  (3 * alien_height) - ship_height)
-        number_of_rows = available_space_column // (2 * alien_height)
+        available_space_row = (self.settings.screen_height -
+                                  (3 * alien_height) - (2 * ship_height))
+        number_of_rows = available_space_row // (2 * alien_height)
 
         # create full fleet of aliens
         for row_number in range(number_of_rows):
