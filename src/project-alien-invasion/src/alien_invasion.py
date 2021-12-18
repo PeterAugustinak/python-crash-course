@@ -3,6 +3,7 @@ import sys
 from time import sleep
 # external library import
 import pygame
+import pygame.mixer
 # local library imports
 from settings import Settings
 from game_stats import GameStats
@@ -11,7 +12,7 @@ from button import Button
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
-
+from sounds import Sounds
 
 class ALienInvasion:
     """Overall class to manage game assets and behavior."""
@@ -33,6 +34,8 @@ class ALienInvasion:
         self._create_fleet()
         # make Play button
         self.play_button = Button(self, "Play")
+        # initialize sounds instance
+        self.sounds = Sounds()
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -49,6 +52,8 @@ class ALienInvasion:
         # Watch for keyboard and mouse events.
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                # 14-5
+                self._save_high_score()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
@@ -65,8 +70,7 @@ class ALienInvasion:
         self.settings.initialize_dynamic_settings()
         self.stats.reset_stats()
         self.stats.game_active = True
-        self.scoreboard.prep_score()
-        self.scoreboard.prep_level()
+        self.scoreboard.prep_images()
 
         # get rid of any remaining aliens and bullets
         self.aliens.empty()
@@ -95,6 +99,8 @@ class ALienInvasion:
             # Move the ship to the right
             self.ship.moving_left = True
         if event.key == pygame.K_q:
+            # 14-5
+            self._save_high_score()
             sys.exit()
         if event.key == pygame.K_SPACE:
             self._fire_bullet()
@@ -110,6 +116,12 @@ class ALienInvasion:
             self.ship.moving_right = False
         if event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+
+    # 14-5
+    def _save_high_score(self):
+        """Save current high score to the file before exit the game"""
+        with open("highscore.txt", "w") as f:
+            f.write(str(self.stats.high_score))
 
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
@@ -138,20 +150,27 @@ class ALienInvasion:
         )
 
         if collisions:
+            self.sounds.explosion.play()
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.scoreboard.prep_score()
             self.scoreboard.check_high_score()
 
         if not self.aliens:
-            # destroy existing bullets and create new fleet
-            self.bullets.empty()
-            self._create_fleet()
-            self.settings.increase_speed()
+            # 14-6
+            self._start_new_level()
 
-            # increase level
-            self.stats.level += 1
-            self.scoreboard.prep_level()
+    # 14-6
+    def _start_new_level(self):
+        """When all aliens fleet is destroyed, start new level."""
+        # destroy existing bullets and create new fleet
+        self.bullets.empty()
+        self._create_fleet()
+        self.settings.increase_speed()
+
+        # increase level
+        self.stats.level += 1
+        self.scoreboard.prep_level()
 
     def _update_aliens(self):
         """
@@ -171,8 +190,9 @@ class ALienInvasion:
     def _ship_hit(self):
         """Respond to the ship being hit by alien."""
         if self.stats.ships_left > 0:
-            # decrement ships left
+            # decrement ships left and update scoreboard
             self.stats.ships_left -= 1
+            self.scoreboard.prep_ships()
 
             # get rid of any remaining aliens and bullets
             self.aliens.empty()

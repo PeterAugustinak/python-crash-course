@@ -10,10 +10,22 @@ class GameStats:
         self.reset_stats()
         self.game_active = False
         # high score - never gonna be reset
-        self.high_score = 0
+        self.high_score = self._read_high_score()
 
     def reset_stats(self):
         """Initialize statistics that can change during the game."""
         self.ships_left = self.settings.ship_limit
         self.score = 0
         self.level = 1
+
+    def _read_high_score(self):
+        """Reads high score from a file"""
+        try:
+            with open("highscore.txt", "r") as f:
+                high_score = f.readline()
+                if high_score != '':
+                    return int(high_score)
+                else:
+                    return 0
+        except FileNotFoundError:
+            return 0
