@@ -262,7 +262,8 @@ class ALienInvasion:
 
     def _update_screen(self):
         # redraw the screen during each pass through the loop
-        self.screen.fill(self.settings.bg_color)
+        self.screen.fill(self.settings.background)
+        # self.screen.blit(self.settings.background, (0, 0))
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
