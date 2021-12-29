@@ -53,4 +53,4 @@ data = [{'type': 'scattergeo',
 my_layout = Layout(title='Fires burning in last 24 hours')
 
 fig = {'data': data, 'layout': my_layout}
-offline.plot(fig, filename='graphs/global_fires_24h.html')
+offline.plot(fig, filename='../../visualizations/charts/global_fires_24h.html')

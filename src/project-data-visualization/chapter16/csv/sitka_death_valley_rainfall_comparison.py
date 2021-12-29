@@ -4,7 +4,7 @@ import csv
 from datetime import datetime
 
 
-filename_sitka = '../data/sitka_weather_2018_simple.csv'
+filename_sitka = '../../data/sitka_weather_2018_simple.csv'
 with open(filename_sitka) as f1:
     reader = csv.reader(f1)
     header_row = next(reader)
@@ -22,7 +22,7 @@ with open(filename_sitka) as f1:
     # 16-4
     station_sitka_name = ', '.join(row[1].title().split()[:2])
 
-filename_death_valley = '../data/death_valley_2018_simple.csv'
+filename_death_valley = '../../data/death_valley_2018_simple.csv'
 with open(filename_death_valley) as f2:
     reader = csv.reader(f2)
     header_row = next(reader)

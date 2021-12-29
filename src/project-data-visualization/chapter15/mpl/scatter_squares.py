@@ -27,4 +27,5 @@ ax.axis([0, 1100, 0, 1000000])
 # plt.show()
 
 # save graph to a file
-plt.savefig('saved_graphs/scatter_squares.png', bbox_inches="tight")
+f = f'../../visualizations/graph/scatter_cubes.png'
+plt.savefig(f, bbox_inches="tight")

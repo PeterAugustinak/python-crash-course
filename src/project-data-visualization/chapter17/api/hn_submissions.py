@@ -80,7 +80,9 @@ def make_visualization(data_to_vis):
         },
     }
     fig = {'data': data, 'layout': my_layout}
-    offline.plot(fig, filename=f'graphs/submission_chart.html')
+
+    f = f'../../visualizations/charts/submission_chart.html'
+    offline.plot(fig, filename=f)
 
 
 create_submission_rank_visualization(30)

@@ -17,5 +17,5 @@ ax.tick_params(axis='both', labelsize=14)
 
 plt.show()
 
-# save file
-# plt.savefig('saved_graphs/plot_squares.png')
+f = f'../../visualizations/graph/mpl_squares.png'
+plt.savefig(f)

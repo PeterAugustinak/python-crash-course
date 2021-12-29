@@ -24,5 +24,5 @@ ax.tick_params(axis='both', labelsize=20)
 # show graph
 plt.show()
 
-# save graph to a file
-# plt.savefig('saved_graphs/scatter_cubes.png')
+f = f'../../visualizations/graph/scatter_cubes.png'
+plt.savefig(f)

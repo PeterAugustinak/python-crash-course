@@ -56,4 +56,4 @@ my_layout = Layout(title=f'Results of rolling 2 x D6 {roll_times} '
                          f'times - multiplicated result',
                    xaxis=x_axis_config, yaxis=y_axis_config)
 offline.plot({'data': data, 'layout': my_layout},
-             filename='graphs/d12_d12_multiply.html')
+             filename='../../visualizations/charts/d12_d12_multiply.html')

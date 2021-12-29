@@ -21,4 +21,5 @@ x_axis_config = {'title': 'Result'}
 y_axis_config = {'title': 'Frequency of Result'}
 my_layout = Layout(title=f'Results of rolling one D6 {roll_times} times',
                    xaxis=x_axis_config, yaxis=y_axis_config)
-offline.plot({'data': data, 'layout': my_layout}, filename='graphs/d6.html')
+offline.plot({'data': data, 'layout': my_layout},
+             filename='../../visualizations/charts/d6.html')

@@ -80,7 +80,9 @@ def make_visualization(data_to_vis):
         },
     }
     fig = {'data': data, 'layout': my_layout}
-    offline.plot(fig, filename=f'graphs/various_repos/repos_comparison.html')
+
+    f = f'../../visualizations/charts/various_repos/repos_comparison.html'
+    offline.plot(fig, filename=f)
 
 
 # CREATE VISUALIZATION

@@ -20,4 +20,5 @@ ax.tick_params(axis='both', labelsize=14)
 plt.show()
 
 # save file
-# plt.savefig('saved_graphs/plot_cubes.png')
+f = f'../../visualizations/graph/mpl_cubes.png'
+plt.savefig(f)

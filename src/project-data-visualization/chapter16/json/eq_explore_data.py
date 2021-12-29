@@ -9,7 +9,7 @@ from plotly import offline
 # for last 30 days
 # filename = '../data/eq_data_30_day_m1.json'
 # 16-8 current last 24 hours
-filename = '../data/eq_data_24hours.json'
+filename = '../../data/eq_data_24hours.json'
 
 with open(filename, encoding='utf8') as f:
     all_eq_data = json.load(f)
@@ -47,4 +47,5 @@ data = [{'type': 'scattergeo',
 my_layout = Layout(title=title)
 
 fig = {'data': data, 'layout': my_layout}
-offline.plot(fig, filename='graphs/global_earthquakes.html')
+offline.plot(fig,
+             filename='../../visualizations/charts/global_earthquakes.html')
