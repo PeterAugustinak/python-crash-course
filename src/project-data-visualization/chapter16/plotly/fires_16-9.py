@@ -5,7 +5,7 @@ from plotly.graph_objs import Layout
 from plotly import offline
 
 
-filename = '../data/fires_24h_world.csv'
+filename = '../../data/fires_24h_world.csv'
 with open(filename) as f:
     reader = csv.reader(f)
     header_row = next(reader)

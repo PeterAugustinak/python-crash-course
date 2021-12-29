@@ -1,7 +1,11 @@
-# 17-3
+# 17-3 -> this can be run only from console and from tests dir
 import unittest
 
+import sys
+sys.path.insert(1, '../api')
+
 import python_repos as pr
+
 
 
 class PythonReposTest(unittest.TestCase):
