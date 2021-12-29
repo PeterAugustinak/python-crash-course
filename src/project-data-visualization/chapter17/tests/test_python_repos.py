@@ -7,7 +7,6 @@ sys.path.insert(1, '../api')
 import python_repos as pr
 
 
-
 class PythonReposTest(unittest.TestCase):
 
     BASE_URL = 'https://api.github.com/search/' \
