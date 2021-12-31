@@ -1,0 +1,58 @@
+# install CLI:
+https://devcenter.heroku.com/articles/heroku-cli/
+
+# install packages to venv:
+pip install psycopg2
+pip install django-heroku
+pip install gunicorn
+
+# create runtime file in base dir:
+echo python-3.10.0 > runtime.txt
+
+# add heroku settings into settings.py
+import django_heroku
+django_heroku.settings(locals())
+
+# create procfile file in base dir:
+web: gunicorn app_name.wsgi --log-file - > Procfile
+
+# pushing to heroku (in active venv)
+heroku login (by web)
+heroku create
+git push heroku master
+
+# check server process started correctly
+heroku ps
+
+# open web (from comand line)
+heroku open
+
+# set up DB on heroku (must be done before app can be used)
+heroku run python manage.py migrate
+
+# heroku bash
+heroku run bash
+
+# create superuser (from heroku bash)
+python manage.py createsuperuser
+
+# exit heroku bash
+exit
+
+# rename app
+heroku apps:rename your-name-of-app
+
+# setting DEBUG - in settings.py
+if os.environ.get('DEBUG') == 'TRUE':
+ DEBUG = True
+elif os.environ.get('DEBUG') == 'FALSE':
+ DEBUG = False
+
+# environment variable on heroku for DEBUG=False
+heroku config:set DEBUG='FALSE'
+
+# deleting project from heroku
+heroku apps:destroy -app your-app
+
+
+
