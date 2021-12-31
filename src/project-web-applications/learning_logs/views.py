@@ -71,7 +71,7 @@ def new_entry(request, topic_id):
             new_entry = form.save(commit=False)
             new_entry.topic = topic
             # 19-4
-            # check_topic_owner(new_entry.topic, request)
+            check_topic_owner(new_entry.topic, request)
             new_entry.save()
             return redirect('learning_logs:topic', topic_id=topic_id)
 
