@@ -9,7 +9,10 @@ from .forms import TopicForm, EntryForm
 # Create your views here.
 def index(request):
     """The home page for Learning Log."""
-    return render(request, 'learning_logs/index.html')
+    if request.user.is_authenticated:
+        return topics(request)
+    else:
+        return render(request, 'learning_logs/index.html')
 
 
 @login_required()
